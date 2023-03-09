@@ -1,3 +1,27 @@
+<app-modal [showModal]="showModalDatos">
+  <div class="bg-primary-800 px-3 py-2 rounded-t flex items-center justify-between">
+    <h1 class="text-white"> Datos de registro </h1>
+    <button (click)="showModalDatos = false" class="text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>            
+    </button>    
+  </div>
+  <div class="p-2">
+    <div class="flex items-center">
+      <img src="assets/persona.svg" class="w-32" alt="persona.svg">  
+      <div class="ml-4">
+        <p class="font-semibold"> {{ registro?.apellido_nombre }} </p>
+        <p class="text-sm text-gray-600"> <span> DNI </span> {{ registro?.dni }} </p>
+        <p class="text-sm mt-4"> <span class="font-semibold"> Domicilio: </span> {{ registro?.domicilio }} </p>
+      </div>
+    </div>
+    <button (click)="showModalDatos = false" class="p-2 focus:outline-none rounded text-sm mt-4 bg-secondaryColor text-white w-full">
+      Aceptar
+    </button>
+  </div>
+</app-modal>
+
 <div>
   <div class="mx-auto gsap-contenido mt-5 rounded-t max-w-xl">
 
@@ -9,7 +33,7 @@
         <img class="w-1/2 mx-auto" src="assets/busqueda.svg" alt="busqueda.svg">
 
         <div class="p-2 flex items-center justify-center">
-          <input (keyup.enter)="buscarRegistro()" placeholder="Colocar DNI"
+          <input [(ngModel)]="dni" (keyup.enter)="buscarRegistro()" placeholder="Colocar DNI"
             class="mt-2 border focus:outline-none border-gray-400 p-2" type="text">
           <button (click)="buscarRegistro()"
             class="p-2 shadow rounded mt-2 ml-2 focus:outline-none bg-secondaryColor text-white"> Buscar registro
@@ -22,7 +46,10 @@
         <h2 class="font-semibold bg-secondaryColor p-2 border-b border-gray-400 text-white text-center"> Actualizar archivo de busqueda
         </h2>
         <div class="p-2 text-center">
-          <input class="mt-2" type="file">
+          <input [(ngModel)]="file" (change)="capturarArchivo($event)" type="file" class="mt-2 text-sm">
+          <button (click)="buscarRegistro()" class="p-2 bg-secondaryColor block mt-4 mx-auto w-11/12 focus:outline-none text-white rounded shadow" (click)="subirArchivo()">
+            Actualizar
+          </button>
         </div>
       </div>
 
